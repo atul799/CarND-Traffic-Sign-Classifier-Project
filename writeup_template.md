@@ -1,11 +1,11 @@
 #**Traffic Sign Recognition** 
 
-##Project report
+## Project report
 
 
 ---
 
-**Build a Traffic Sign Recognition Project**
+** Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
 * Load the data set (see below for links to the project data set)
@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 
 
-###Load and Explore data
+### Load and Explore data
 The dataset provided has 34799 training examples,4410 validation examples and 12630 testing examples.The dataset is classified into 43 labels for different types of traffic signs. All the images in the dataset are colored and 32x32 pixels.An image is selected at random and plotted as shown below:
 
 <img src="./imgs_for_report/random_im_dexplore.png" width="400" height="270" alt="Combined Image" />
@@ -51,7 +51,7 @@ Here is the bar graph of training set after augmenting:
 <img src="./imgs_for_report/histogram_augmented.png"  width="400" height="270" alt="Combined Image" />
 
 
-###Final Model
+### Final Model
 The model is based on digit recognition project done earlier in course. Both colored (3 channel) and grayscaled (1 channel) images are tested. 
 <img src="./lenet.png"  width="400" height="270" alt="Combined Image" />
 
@@ -92,9 +92,9 @@ Epoch was gradually increased to 60 and dataset with augmented images was used, 
 
 The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
 
-**Final validation accuracy 95.4% **
+** Final validation accuracy 95.4% **
 
-**Final test accuracy 94.2% **
+** Final test accuracy 94.2% **
 
 Here is the image of train accuracy over different epochs:
 
@@ -105,7 +105,7 @@ and validation accuracy:
 <img src="./imgs_for_report/valid_acc.png"  width="400" height="270" alt="Combined Image" />
 
 
-###Test a Model on New Images
+### Test a Model on New Images
 
 8 images of German traffic signs  were downloaded from web.Some were clear while others were slightly blurred or tilted at different angles.The images are:
 
@@ -170,5 +170,5 @@ Project html based on ipynb is:
  
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
