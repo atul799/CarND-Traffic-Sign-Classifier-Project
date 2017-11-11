@@ -59,10 +59,10 @@ The model is based on digit recognition project done earlier in course. Both col
 The architecture mentioned in Lecun,Sermanet. 
 
 My final model consisted of the 2 convolution layer followed by 23 fully connected layers, fully connected layers have dropout for regularization. Here are the details:
-**
-----------------------------------------------------------------|
+
+
 | Layer             |     Description	                        | 
-|:-------------------------------------------------------------:|    
+|-------------------|:-----------------------------------------:|    
 | Input             | 32x32x1 Grayscale image                   |  
 | Convolution 5x5   | 1x1 stride, same padding, outputs 28x28x6 |
 | RELU		    |             			        |
@@ -75,9 +75,7 @@ My final model consisted of the 2 convolution layer followed by 23 fully connect
 | Fully connected   | input 200x 100        			|
 | RELU              |                                           |
 | Fully connected   | input 100x 43        			|
-----------------------------------------------------------------|
 
-**
 
 ### Training and Tuning
 The model is trained initially with color images, however, after trying grayscaled images the accuracy reached is similar with both approaches, so grayscaled images are used for final model training.
@@ -93,6 +91,7 @@ The training accuracy curve was quite steep and then settled to around 97% and s
 Epoch was gradually increased to 60 and dataset with augmented images was used, cells in fully connected layer was increased as well. 
 
 The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
+
 **Final validation accuracy 95.4% **
 
 **Final test accuracy 94.2% **
@@ -123,11 +122,10 @@ The accuracy reached for these new images was 50%. For 2 of the images the softm
 
 
 Here are the results of the prediction:
-**
 
---------------------------------------------------
+
 | Image		     |     Prediction	         | 
-|:----------------------------------------------:| 
+|--------------------|:-------------------------:| 
 | Yield		     | Yield       		 | 
 | Curveleft	     | Go straight or left	 |
 | Priority	     | Priority		         |
@@ -136,8 +134,7 @@ Here are the results of the prediction:
 | 30kmph             | Slippery road             |
 | Right of way       | Right of way              |
 | Slippery road      | Keep right                |
---------------------------------------------------
-**
+
 
 I am a bit surprised with 50kmph not being recognized correctly.
 Looking at features identified in each layer would be useful,unfortunately the code given in optional section didn't work as I couldn't figure which variable names to use for tf_variable argument in function!!
