@@ -16,164 +16,146 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 
 
-**Load and Explore data**
+###Load and Explore data
 The dataset provided has 34799 training examples,4410 validation examples and 12630 testing examples.The dataset is classified into 43 labels for different types of traffic signs. All the images in the dataset are colored and 32x32 pixels.An image is selected at random and plotted as shown below:
 
-[image ex]: ./imgs_for_report/random_im_dexplore.png
+![image_ex] ./imgs_for_report/random_im_dexplore.png "Image Train"
+
+Here is the bargraph of training set data for each label:
+
+![image_hist_train] ./imgs_for_report/histogram_training_set_init.png "Histogram Training Data"
+
+Here is the bar graph of validation set data for each label:
 
 
-[//]: # (Image References)
-
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+![image_hist_valid] ./imgs_for_report/histogram_valid_set_init.png "Histogram Validation Data"
 
 
+The images in each data set (train,valid and test) are grayscaled and normalized. opeccv function cvtColor function ised to conver color images to grayscale.
+Normalization and scaling is done as it helps in optimization. The model is tested with both colored as well as grayscaled images, colored images doesn't show superior accuracy, so gray scaled images were chosen with final model.Lecun's paper also used grayscaled images. Here left image is colored and right is grayscaled.
+
+![image_gray_scaled] ./imgs_for_report/color_im.png "Grayscaled image"
+
+The image below is normalized, left is grayscaled image and right is normalized.
+
+![image_gray_scaled] ./imgs_for_report/grayscaled_normalized.png "Grayscaled_normalized image"
+
+Looking at the training set bar graph, some classes has over 2000 images while some has as low as 180 images. After few trials, I decided to generate "fake" images and augment to classes that has less than 800 images. Essentially, I generated transformed images of existing images using opencv library functions such as GaussianBlur and warpAffine and warpTransform. the transforms are blur,random translate upto 2 pixels,rotate,perspective and warpaffine and perspective.The goal was to get upto minimum of 800 images per class.
+Here are transformations added to one of the images (the first image is original image):
+
+![image_transformed] ./imgs_for_report/transformed.png "Transformed image"
+
+Here is the bar graph of training set after augmenting:
+
+![image_augmented] ./imgs_for_report/histogram_augmented.png "Histogram augmented"
 
 
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+###Final Model
+The model is based on digit recognition project done earlier in course. Both colored (3 channel) and grayscaled (1 channel) images are tested. 
 
----
-###Writeup / README
-
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
-
-###Data Set Summary & Exploration
-
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
-
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
-
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
-
-####2. Include an exploratory visualization of the dataset.
-
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
-
-![alt text][image1]
-
-###Design and Test a Model Architecture
-
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
-
-As a first step, I decided to convert the images to grayscale because ...
-
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
+![image_lenet] ./lenet.png "Lenet"
 
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+The architecture mentioned in Lecun,Sermanet. 
 
-My final model consisted of the following layers:
+My final model consisted of the 2 convolution layer followed by 23 fully connected layers, fully connected layers have dropout for regularization. Here are the details:
+----------------------------------------------------------------|
+| Layer         		|     Description	        | 
+|:-------------------------------------------------------------:|    
+|:-------------------------------------------------:            | 
+| Input         	    | 32x32x1 Grayscale image           |  
+| Convolution 5x5   | 1x1 stride, same padding, outputs 28x28x6 |
+| RELU		    |             			        |
+| Max pooling	    | 1x1 stride,  outputs 14x14x6 		|
+| Convolution 5x5   | 1x1 stride, valid padding,outputs 10x10x16|  
+| RELU              |                                           |
+| Max pooling       | 1x1 stride, valid padding,outputs 5x5x16  |
+| Fully connected   | input 400x 200        			|
+| RELU              |                                           |
+| Fully connected   | input 200x 100        			|
+| RELU              |                                           |
+| Fully connected   | input 100x 43        			|
+----------------------------------------------------------------|
 
-| Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+### Training and Tuning
+The model is trained initially with color images, however, after trying grayscaled images the accuracy reached is similar with both approaches, so grayscaled images are used for final model training.
+The initial epoch number was 10,batch size as 128 and learning rate as 0.001.
 
+The initial training accuracy was aroung 87%,however, I realized using normal random distribution for weight initialization was not a good idea as weights may be too small and model might stop training and gradient might be too small. The weights are then initialized with truncated normal distribution.
+Adamoptimizer is used.
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+After truncated normal weights initialization and using grayscale and normalized image, the validation accuray reached was 92%.
+Increasing batch size didn't improve accuracy.
+The next step was to implement a piece of code to monitor accuracy during training and validation for each training cycle.
+The training accuracy curve was quite steep and then settled to around 97% and so was validation curve. I reduced learning rate to 0.0005 and added dropout threshold of 0.7. The validation accuracy reached over 94%. The dropout for validation and test set was kept at 1.0.
+Epoch was gradually increased to 60 and dataset with augmented images was used, cells in fully connected layer was increased as well. The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
 
-To train the model, I used an ....
+Here is the image of train accuracy over different epochs:
+![image_trainacc] ./imgs_for_report/train_acc.png "Training accuracy"
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+and validation accuracy:
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+![image_validacc] ./imgs_for_report/valid_acc.png "Validation accuracy"
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
 
 ###Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+8 images of German traffic signs  were downloaded from web.Some were clear while others were slightly blurred or tilted at different angles.The images are:
 
-Here are five German traffic signs that I found on the web:
+![image_imagesfromweb] ./imgs_for_report/images_from_web.png "Web images"
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
 
-The first image might be difficult to classify because ...
+The images were resized to be 32x32 and grayscaled and normalized.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+![image_imagesfromwebresized] ./imgs_for_report/images_from_web_resized.png "Web images resized"
+
+The 30 kmph speed limit image has 2 signs on it while slipper road image is tilted, so might be difficult to identify.
+
+The accuracy reached for these new images was 50%. For 2 of the images the softmax didn't have the correct label in top 5 probabilities.
+
 
 Here are the results of the prediction:
+--------------------------------------------------
+| Image			|     Prediction	 | 
+|:----------------------------------------------:| 
+| Yield		     | Yield       		 | 
+| Curveleft	     | Go straight or left	 |
+| Priority		     | Priority		 |
+| Road work	     | Road work 		 |
+| 50kmph		     | Right of way      |
+| 30kmph             | Slippery road             |
+| Right of way       | Right of way              |
+| Slippery road      | Keep right                |
+--------------------------------------------------
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+I am a bit surprised with 50kmph not being recognized correctly.
+Looking at features identified in each layer would be useful,unfortunately the code given in optional section didn't work as I couldn't figure which variable names to use for tf_variable argument in function!!
+
+Here is softmax top 5 probability for each image 
+
+![image_yield] ./imgs_for_report/yieled.png "yield"
+![image_curveleft] ./imgs_for_report/left.png "curveleft"
+![image_priority] ./imgs_for_report/priority.png "priority"
+![image_road] ./imgs_for_report/roadwork.png "roadwork"
+![image_50kmph] ./imgs_for_report/50kmph.png "50kmph"
+![image_30kmph] ./imgs_for_report/30kmph.png "30kmph"
+![image_rightofway] ./imgs_for_report/rightofway.png "rightofway"
+![image_slippery] ./imgs_for_report/slipperyroad.png "slipperyroad"
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
-
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
-
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
 
 
-For the second image ... 
+
+## Further invetigation is required to improve accuracy on the model
+Lecun's paper reached >99% accuracy. 
+
+
+[//]: # (Image References)
+![alt text][image2]
+
+
+ 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
 
