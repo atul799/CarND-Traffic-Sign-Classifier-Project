@@ -59,7 +59,7 @@ The model is based on digit recognition project done earlier in course. Both col
 The architecture mentioned in Lecun,Sermanet. 
 
 My final model consisted of the 2 convolution layer followed by 23 fully connected layers, fully connected layers have dropout for regularization. Here are the details:
-
+**
 ----------------------------------------------------------------|
 | Layer             |     Description	                        | 
 |:-------------------------------------------------------------:|    
@@ -77,6 +77,8 @@ My final model consisted of the 2 convolution layer followed by 23 fully connect
 | Fully connected   | input 100x 43        			|
 ----------------------------------------------------------------|
 
+**
+
 ### Training and Tuning
 The model is trained initially with color images, however, after trying grayscaled images the accuracy reached is similar with both approaches, so grayscaled images are used for final model training.
 The initial epoch number was 10,batch size as 128 and learning rate as 0.001.
@@ -88,9 +90,15 @@ After truncated normal weights initialization and using grayscale and normalized
 Increasing batch size didn't improve accuracy.
 The next step was to implement a piece of code to monitor accuracy during training and validation for each training cycle.
 The training accuracy curve was quite steep and then settled to around 97% and so was validation curve. I reduced learning rate to 0.0005 and added dropout threshold of 0.7. The validation accuracy reached over 94%. The dropout for validation and test set was kept at 1.0.
-Epoch was gradually increased to 60 and dataset with augmented images was used, cells in fully connected layer was increased as well. The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
+Epoch was gradually increased to 60 and dataset with augmented images was used, cells in fully connected layer was increased as well. 
+
+The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
+**Final validation accuracy 95.4% **
+
+**Final test accuracy 94.2% **
 
 Here is the image of train accuracy over different epochs:
+
 <img src="./imgs_for_report/train_acc.png"  width="400" height="270" alt="Combined Image" />
 
 and validation accuracy:
@@ -115,6 +123,7 @@ The accuracy reached for these new images was 50%. For 2 of the images the softm
 
 
 Here are the results of the prediction:
+**
 
 --------------------------------------------------
 | Image		     |     Prediction	         | 
@@ -128,6 +137,7 @@ Here are the results of the prediction:
 | Right of way       | Right of way              |
 | Slippery road      | Keep right                |
 --------------------------------------------------
+**
 
 I am a bit surprised with 50kmph not being recognized correctly.
 Looking at features identified in each layer would be useful,unfortunately the code given in optional section didn't work as I couldn't figure which variable names to use for tf_variable argument in function!!
