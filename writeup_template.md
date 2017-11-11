@@ -19,40 +19,41 @@ The goals / steps of this project are the following:
 ###Load and Explore data
 The dataset provided has 34799 training examples,4410 validation examples and 12630 testing examples.The dataset is classified into 43 labels for different types of traffic signs. All the images in the dataset are colored and 32x32 pixels.An image is selected at random and plotted as shown below:
 
-![alt text][./imgs_for_report/random_im_dexplore.png]
+<img src="./imgs_for_report/random_im_dexplore.png" width="400" height="270" alt="Combined Image" />
+
 
 Here is the bargraph of training set data for each label:
 
-![alt text][./imgs_for_report/histogram_training_set_init.png]
+<img src="./imgs_for_report/histogram_training_set_init.png"  width="400" height="270" alt="Combined Image" />
 
 Here is the bar graph of validation set data for each label:
 
 
-![alt text][./imgs_for_report/histogram_valid_set_init.png]
+<img src="./imgs_for_report/histogram_valid_set_init.png"  width="400" height="270" alt="Combined Image" />
 
 
 The images in each data set (train,valid and test) are grayscaled and normalized. opeccv function cvtColor function ised to conver color images to grayscale.
 Normalization and scaling is done as it helps in optimization. The model is tested with both colored as well as grayscaled images, colored images doesn't show superior accuracy, so gray scaled images were chosen with final model.Lecun's paper also used grayscaled images. Here left image is colored and right is grayscaled.
 
-![alt text][./imgs_for_report/color_im.png]
+<img src="./imgs_for_report/color_im.png"  width="400" height="270" alt="Combined Image" />
 
 The image below is normalized, left is grayscaled image and right is normalized.
 
-![alt text][./imgs_for_report/grayscaled_normalized.png]
+<img src="./imgs_for_report/grayscaled_normalized.png"  width="400" height="270" alt="Combined Image" />
 
 Looking at the training set bar graph, some classes has over 2000 images while some has as low as 180 images. After few trials, I decided to generate "fake" images and augment to classes that has less than 800 images. Essentially, I generated transformed images of existing images using opencv library functions such as GaussianBlur and warpAffine and warpTransform. the transforms are blur,random translate upto 2 pixels,rotate,perspective and warpaffine and perspective.The goal was to get upto minimum of 800 images per class.
 Here are transformations added to one of the images (the first image is original image):
 
-![alt text][./imgs_for_report/transformed.png]
+<img src="./imgs_for_report/transformed.png"  width="400" height="270" alt="Combined Image" />
 
 Here is the bar graph of training set after augmenting:
 
-![alt text][./imgs_for_report/histogram_augmented.png]
+<img src="./imgs_for_report/histogram_augmented.png"  width="400" height="270" alt="Combined Image" />
 
 
 ###Final Model
 The model is based on digit recognition project done earlier in course. Both colored (3 channel) and grayscaled (1 channel) images are tested. 
-![alt text][./lenet.png]
+<img src="./lenet.png"  width="400" height="270" alt="Combined Image" />
 
 
 The architecture mentioned in Lecun,Sermanet. 
@@ -90,23 +91,23 @@ The training accuracy curve was quite steep and then settled to around 97% and s
 Epoch was gradually increased to 60 and dataset with augmented images was used, cells in fully connected layer was increased as well. The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
 
 Here is the image of train accuracy over different epochs:
-![alt text][./imgs_for_report/train_acc.png]
+<img src="./imgs_for_report/train_acc.png"  width="400" height="270" alt="Combined Image" />
 
 and validation accuracy:
 
-![alt text][./imgs_for_report/valid_acc.png]
+<img src="./imgs_for_report/valid_acc.png"  width="400" height="270" alt="Combined Image" />
 
 
 ###Test a Model on New Images
 
 8 images of German traffic signs  were downloaded from web.Some were clear while others were slightly blurred or tilted at different angles.The images are:
 
-![alt text][./imgs_for_report/images_from_web.png]
+<img src="./imgs_for_report/images_from_web.png"  width="400" height="270" alt="Combined Image" />
 
 
 The images were resized to be 32x32 and grayscaled and normalized.
 
-![alt text][./imgs_for_report/images_from_web_resized.png]
+<img src="./imgs_for_report/images_from_web_resized.png"  width="400" height="270" alt="Combined Image" />
 
 The 30 kmph speed limit image has 2 signs on it while slipper road image is tilted, so might be difficult to identify.
 
@@ -133,14 +134,14 @@ Looking at features identified in each layer would be useful,unfortunately the c
 
 Here is softmax top 5 probability for each image 
 
-![alt text][./imgs_for_report/yield.png]
-![alt text][./imgs_for_report/left.png]
-![alt text][./imgs_for_report/priority.png]
-![alt text][./imgs_for_report/roadwork.png]
-![alt text][./imgs_for_report/50kmph.png]
-![alt text][./imgs_for_report/30kmph.png]
-![alt text][./imgs_for_report/rightofway.png]
-![alt text][./imgs_for_report/slipperyroad.png] 
+<img src="./imgs_for_report/yield.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/left.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/priority.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/roadwork.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/50kmph.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/30kmph.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/rightofway.png"  width="400" height="270" alt="Combined Image" />
+<img src="./imgs_for_report/slipperyroad.png"  width="400" height="270" alt="Combined Image" /> 
 
 
 
@@ -148,6 +149,11 @@ Here is softmax top 5 probability for each image
 
 ## Further invetigation is required to improve accuracy on the model
 Lecun's paper reached >99% accuracy. 
+
+
+Project html based on ipynb is:
+
+(HTML_REPORT)](https://github.com/atul799/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.html)
 
 
 [//]: # (Image References)
