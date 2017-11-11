@@ -1,0 +1,12 @@
+data
+.ipynb_checkpoints
+*.h5
+models
+*.swp
+*.p
+*.zip
+lenet_german_traffic_sign.data*
+lenet_german_traffic_sign_gray.data*
+*.pickle
+*.meta*
+spyder_scrs/lenet_*
