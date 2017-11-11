@@ -19,51 +19,50 @@ The goals / steps of this project are the following:
 ###Load and Explore data
 The dataset provided has 34799 training examples,4410 validation examples and 12630 testing examples.The dataset is classified into 43 labels for different types of traffic signs. All the images in the dataset are colored and 32x32 pixels.An image is selected at random and plotted as shown below:
 
-![image_ex] ./imgs_for_report/random_im_dexplore.png "Image Train"
+![alt text][./imgs_for_report/random_im_dexplore.png]
 
 Here is the bargraph of training set data for each label:
 
-![image_hist_train] ./imgs_for_report/histogram_training_set_init.png "Histogram Training Data"
+![alt text][./imgs_for_report/histogram_training_set_init.png]
 
 Here is the bar graph of validation set data for each label:
 
 
-![image_hist_valid] ./imgs_for_report/histogram_valid_set_init.png "Histogram Validation Data"
+![alt text][./imgs_for_report/histogram_valid_set_init.png]
 
 
 The images in each data set (train,valid and test) are grayscaled and normalized. opeccv function cvtColor function ised to conver color images to grayscale.
 Normalization and scaling is done as it helps in optimization. The model is tested with both colored as well as grayscaled images, colored images doesn't show superior accuracy, so gray scaled images were chosen with final model.Lecun's paper also used grayscaled images. Here left image is colored and right is grayscaled.
 
-![image_gray_scaled] ./imgs_for_report/color_im.png "Grayscaled image"
+![alt text][./imgs_for_report/color_im.png]
 
 The image below is normalized, left is grayscaled image and right is normalized.
 
-![image_gray_scaled] ./imgs_for_report/grayscaled_normalized.png "Grayscaled_normalized image"
+![alt text][./imgs_for_report/grayscaled_normalized.png]
 
 Looking at the training set bar graph, some classes has over 2000 images while some has as low as 180 images. After few trials, I decided to generate "fake" images and augment to classes that has less than 800 images. Essentially, I generated transformed images of existing images using opencv library functions such as GaussianBlur and warpAffine and warpTransform. the transforms are blur,random translate upto 2 pixels,rotate,perspective and warpaffine and perspective.The goal was to get upto minimum of 800 images per class.
 Here are transformations added to one of the images (the first image is original image):
 
-![image_transformed] ./imgs_for_report/transformed.png "Transformed image"
+![alt text][./imgs_for_report/transformed.png]
 
 Here is the bar graph of training set after augmenting:
 
-![image_augmented] ./imgs_for_report/histogram_augmented.png "Histogram augmented"
+![alt text][./imgs_for_report/histogram_augmented.png]
 
 
 ###Final Model
 The model is based on digit recognition project done earlier in course. Both colored (3 channel) and grayscaled (1 channel) images are tested. 
-
-![image_lenet] ./lenet.png "Lenet"
+![alt text][./lenet.png]
 
 
 The architecture mentioned in Lecun,Sermanet. 
 
 My final model consisted of the 2 convolution layer followed by 23 fully connected layers, fully connected layers have dropout for regularization. Here are the details:
+
 ----------------------------------------------------------------|
-| Layer         		|     Description	        | 
+| Layer             |     Description	                        | 
 |:-------------------------------------------------------------:|    
-|:-------------------------------------------------:            | 
-| Input         	    | 32x32x1 Grayscale image           |  
+| Input             | 32x32x1 Grayscale image                   |  
 | Convolution 5x5   | 1x1 stride, same padding, outputs 28x28x6 |
 | RELU		    |             			        |
 | Max pooling	    | 1x1 stride,  outputs 14x14x6 		|
@@ -91,23 +90,23 @@ The training accuracy curve was quite steep and then settled to around 97% and s
 Epoch was gradually increased to 60 and dataset with augmented images was used, cells in fully connected layer was increased as well. The validation acuracy reached around 95% with above. Few more experiments with dropout and finally validation accuracy reached was *95.4%* and test set accuracy of *94.2%*.
 
 Here is the image of train accuracy over different epochs:
-![image_trainacc] ./imgs_for_report/train_acc.png "Training accuracy"
+![alt text][./imgs_for_report/train_acc.png]
 
 and validation accuracy:
 
-![image_validacc] ./imgs_for_report/valid_acc.png "Validation accuracy"
+![alt text][./imgs_for_report/valid_acc.png]
 
 
 ###Test a Model on New Images
 
 8 images of German traffic signs  were downloaded from web.Some were clear while others were slightly blurred or tilted at different angles.The images are:
 
-![image_imagesfromweb] ./imgs_for_report/images_from_web.png "Web images"
+![alt text][./imgs_for_report/images_from_web.png]
 
 
 The images were resized to be 32x32 and grayscaled and normalized.
 
-![image_imagesfromwebresized] ./imgs_for_report/images_from_web_resized.png "Web images resized"
+![alt text][./imgs_for_report/images_from_web_resized.png]
 
 The 30 kmph speed limit image has 2 signs on it while slipper road image is tilted, so might be difficult to identify.
 
@@ -115,14 +114,15 @@ The accuracy reached for these new images was 50%. For 2 of the images the softm
 
 
 Here are the results of the prediction:
+
 --------------------------------------------------
-| Image			|     Prediction	 | 
+| Image		     |     Prediction	         | 
 |:----------------------------------------------:| 
 | Yield		     | Yield       		 | 
 | Curveleft	     | Go straight or left	 |
-| Priority		     | Priority		 |
+| Priority	     | Priority		         |
 | Road work	     | Road work 		 |
-| 50kmph		     | Right of way      |
+| 50kmph	     | Right of way              |
 | 30kmph             | Slippery road             |
 | Right of way       | Right of way              |
 | Slippery road      | Keep right                |
@@ -133,14 +133,14 @@ Looking at features identified in each layer would be useful,unfortunately the c
 
 Here is softmax top 5 probability for each image 
 
-![image_yield] ./imgs_for_report/yieled.png "yield"
-![image_curveleft] ./imgs_for_report/left.png "curveleft"
-![image_priority] ./imgs_for_report/priority.png "priority"
-![image_road] ./imgs_for_report/roadwork.png "roadwork"
-![image_50kmph] ./imgs_for_report/50kmph.png "50kmph"
-![image_30kmph] ./imgs_for_report/30kmph.png "30kmph"
-![image_rightofway] ./imgs_for_report/rightofway.png "rightofway"
-![image_slippery] ./imgs_for_report/slipperyroad.png "slipperyroad"
+![alt text][./imgs_for_report/yield.png]
+![alt text][./imgs_for_report/left.png]
+![alt text][./imgs_for_report/priority.png]
+![alt text][./imgs_for_report/roadwork.png]
+![alt text][./imgs_for_report/50kmph.png]
+![alt text][./imgs_for_report/30kmph.png]
+![alt text][./imgs_for_report/rightofway.png]
+![alt text][./imgs_for_report/slipperyroad.png] 
 
 
 
